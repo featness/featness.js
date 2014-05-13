@@ -13,7 +13,7 @@ module.exports = (grunt) ->
   grunt.initConfig
     yeoman: yeomanConfig
 
-    
+
     coffee:
       dist:
         files: [
@@ -28,8 +28,8 @@ module.exports = (grunt) ->
         src: '<%=yeoman.dist %>/featnessjs.js'
         dest: '<%=yeoman.dist %>/featnessjs.min.js'
     mochaTest:
-      test: 
-        options: 
+      test:
+        options:
           reporter: 'spec'
           compilers: 'coffee:coffee-script'
         src: ['test/**/*.coffee']
