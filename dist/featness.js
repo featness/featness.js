@@ -111,6 +111,7 @@
       this.cookies = cookies;
       this.jsonp = jsonp;
       this.queueClass = queueClass;
+      this._sendIsEnabled = __bind(this._sendIsEnabled, this);
       this._sendFact = __bind(this._sendFact, this);
       this._setUserId = __bind(this._setUserId, this);
       this._resolveSessionId = __bind(this._resolveSessionId, this);
@@ -175,10 +176,16 @@
       return this._factQ.defer(valueFunc, this._resolveFact(key));
     };
 
+    Featness.prototype._sendIsEnabled = function(key, callback) {
+      return this.jsonp("" + this.options.apiUrl + "/is-enabled?userId=" + this.userId + "&sessionId=" + this.sessionId + "&key=" + key, (function(_this) {
+        return function(result) {
+          return callback(result);
+        };
+      })(this));
+    };
+
     Featness.prototype.isEnabled = function(key, callback) {
-      return this._featQ.defer(callback, {
-        key: key
-      });
+      return this._featQ.defer(this._sendIsEnabled, key, callback);
     };
 
     return Featness;

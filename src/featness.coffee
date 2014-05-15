@@ -74,10 +74,15 @@ class Featness
   addFact: (key, valueFunc) ->
     @_factQ.defer valueFunc, @_resolveFact(key)
 
+  _sendIsEnabled: (key, callback) =>
+    @jsonp(
+      "#{@options.apiUrl}/is-enabled?userId=#{ @userId }&sessionId=#{ @sessionId }&key=#{ key }",
+      (result) =>
+        callback(result)
+    )
+
   isEnabled: (key, callback) ->
-    @_featQ.defer callback, {
-      key: key
-    }
+    @_featQ.defer @_sendIsEnabled, key, callback
 
 root = exports ? window
 root.Featness = Featness
