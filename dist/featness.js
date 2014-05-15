@@ -106,8 +106,8 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Featness = (function() {
-    function Featness(options, cookies, jsonp, queueClass) {
-      this.options = options;
+    function Featness(config, cookies, jsonp, queueClass) {
+      var key, val;
       this.cookies = cookies;
       this.jsonp = jsonp;
       this.queueClass = queueClass;
@@ -115,6 +115,13 @@
       this._setUserId = __bind(this._setUserId, this);
       this._resolveSessionId = __bind(this._resolveSessionId, this);
       this._resolveUserId = __bind(this._resolveUserId, this);
+      this.options = {
+        isEnabledTimeout: 500
+      };
+      for (key in config) {
+        val = config[key];
+        this.options[key] = val;
+      }
       if (this.cookies == null) {
         this.cookies = root.Cookies;
       }
@@ -131,6 +138,7 @@
       this._featQ = queueClass({
         autoStart: false
       });
+      this._startFeatQ();
     }
 
     Featness.prototype._resolveUserId = function() {
@@ -157,6 +165,10 @@
       return this.jsonp("" + this.options.apiUrl + "/fact?userId=" + this.userId + "&sessionId=" + this.sessionId + "&key=" + key + "&value=" + value, (function(_this) {
         return function(result) {};
       })(this));
+    };
+
+    Featness.prototype._startFeatQ = function() {
+      return setTimeout(this._featQ.start, this.options.isEnabledTimeout);
     };
 
     Featness.prototype.addFact = function(key, valueFunc) {

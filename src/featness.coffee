@@ -26,7 +26,13 @@
 # c) isEnableds (push to queue)
 
 class Featness
-  constructor: (@options, @cookies, @jsonp, @queueClass) ->
+  constructor: (config, @cookies, @jsonp, @queueClass) ->
+    @options =
+      isEnabledTimeout: 500
+
+    for key, val of config
+      @options[key] = val
+
     @cookies = root.Cookies unless @cookies?
     @jsonp = root.JSONP unless @jsonp?
     @openFacts = 0
@@ -40,6 +46,8 @@ class Featness
     @_featQ = queueClass(
       autoStart: false
     )
+
+    @_startFeatQ()
 
   _resolveUserId: =>
     @options.userId(@_setUserId)
@@ -59,6 +67,9 @@ class Featness
       "#{@options.apiUrl}/fact?userId=#{ @userId }&sessionId=#{ @sessionId }&key=#{ key }&value=#{ value }",
       (result) =>
     )
+
+  _startFeatQ: ->
+    setTimeout @_featQ.start, @options.isEnabledTimeout
 
   addFact: (key, valueFunc) ->
     @_factQ.defer valueFunc, @_resolveFact(key)
