@@ -57,7 +57,7 @@ describe 'featness', ->
 
 
     it 'can send a new fact', (done) ->
-      factUrl = "http://local.featness.com:2368/fact?userId=user&sessionId=1234567890&key=facebook.authenticated&value=true"
+      factUrl = "http://local.featness.com:2368/add-fact?userId=user&sessionId=1234567890&key=facebook.authenticated&value=true"
       featness.addFact "facebook.authenticated", (resolve) ->
         resolve(true)
 

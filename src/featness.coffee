@@ -64,7 +64,7 @@ class Featness
 
   _sendFact: (key, value) =>
     @jsonp(
-      "#{@options.apiUrl}/fact?userId=#{ @userId }&sessionId=#{ @sessionId }&key=#{ key }&value=#{ value }",
+      "#{@options.apiUrl}/add-fact?userId=#{ @userId }&sessionId=#{ @sessionId }&key=#{ key }&value=#{ value }",
       (result) =>
     )
 

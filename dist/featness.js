@@ -163,7 +163,7 @@
     };
 
     Featness.prototype._sendFact = function(key, value) {
-      return this.jsonp("" + this.options.apiUrl + "/fact?userId=" + this.userId + "&sessionId=" + this.sessionId + "&key=" + key + "&value=" + value, (function(_this) {
+      return this.jsonp("" + this.options.apiUrl + "/add-fact?userId=" + this.userId + "&sessionId=" + this.sessionId + "&key=" + key + "&value=" + value, (function(_this) {
         return function(result) {};
       })(this));
     };
