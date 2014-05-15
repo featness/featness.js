@@ -10,9 +10,9 @@ module.exports = (grunt) ->
   yeomanConfig =
     src: 'src'
     dist : 'dist'
+    bower: 'bower_components'
   grunt.initConfig
     yeoman: yeomanConfig
-
 
     coffee:
       dist:
@@ -23,10 +23,16 @@ module.exports = (grunt) ->
           dest: '<%= yeoman.dist %>'
           ext: '.js'
         ]
+    concat:
+      options:
+        separator: ';'
+      dist:
+        src: ['<%=yeoman.bower %>/asynqueue/queue.js', '<%=yeoman.dist %>/featness.js']
+        dest: '<%=yeoman.dist %>/featness.js'
     uglify:
       build:
-        src: '<%=yeoman.dist %>/featnessjs.js'
-        dest: '<%=yeoman.dist %>/featnessjs.min.js'
+        src: '<%=yeoman.dist %>/featness.js'
+        dest: '<%=yeoman.dist %>/featness.min.js'
     mochaTest:
       test:
         options:
@@ -37,5 +43,6 @@ module.exports = (grunt) ->
     grunt.registerTask 'default', [
       'mochaTest'
       'coffee'
+      'concat'
       'uglify'
     ]

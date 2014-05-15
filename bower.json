@@ -3,6 +3,7 @@
   "description": "featness.js is a great component",
   "main": "dist/featness.js",
   "version": "0.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "asynqueue": "~1.0.9"
+  }
 }
-

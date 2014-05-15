@@ -9,6 +9,7 @@
     "grunt" : "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-uglify": "*",
+    "grunt-contrib-concat": "*",
     "matchdep": "*",
     "grunt-mocha-test": "*"
   }
